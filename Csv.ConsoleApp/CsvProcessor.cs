@@ -23,6 +23,8 @@ namespace Csv.ConsoleApp
         private string _outputFilePath;
         private string _errorFilePath;
 
+        public string ErrorFilePath => _errorFilePath;
+
         public bool HasErrors { get; set; }
 
         public CsvProcessor(string inputFilePath, string outputFilePath, string errorFilePath)

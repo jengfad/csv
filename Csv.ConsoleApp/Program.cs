@@ -20,9 +20,9 @@ namespace Csv.ConsoleApp
 
         static void ProcessCsv()
         {
-            Console.WriteLine("Enter input file path:");
+            Console.WriteLine("Enter input file path (relative or full file path):");
             var inputPath = Console.ReadLine();
-            Console.WriteLine("Enter output file path:");
+            Console.WriteLine("Enter output file path (relative or full file path):");
             var outputPath = Console.ReadLine();
             var errorFilePath = ("errorLogs.txt");
 
@@ -36,7 +36,7 @@ namespace Csv.ConsoleApp
             var timeTaken = timer.Elapsed;
 
             if (csv.HasErrors)
-                Console.WriteLine($"CSV Errors detected. See {errorFilePath}");
+                Console.WriteLine($"CSV Errors detected. See {csv.ErrorFilePath}");
             else
                 Console.WriteLine($"CSV Processing Successful. See output file. Time Elapsed - {timeTaken:m\\:ss\\.fff}");
         }
