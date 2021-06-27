@@ -22,7 +22,7 @@ namespace Csv.ConsoleApp
         {
             var inputPath = GetInputPath();
             var outputPath = GetOutputPath();
-            var errorFilePath = "errorLogs.txt".GetRelativePath();
+            var errorFilePath = GetErrorFilePath(outputPath);
 
             var csv = new CsvProcessor(inputPath, outputPath, errorFilePath);
             csv.ProcessCsv();
@@ -67,6 +67,12 @@ namespace Csv.ConsoleApp
             } while (!isValidOutput);
 
             return outputPath.GetFilepath();
+        }
+
+        static string GetErrorFilePath(string outputFilePath)
+        {
+            var outputFileName = Path.GetFileName(outputFilePath);
+            return outputFilePath.Replace(outputFileName, "errorLogs.txt");
         }
     }
 }
