@@ -40,34 +40,33 @@ namespace Csv.ConsoleApp
 
         public void ProcessCsv()
         {
+            var i = 0;
+
             using (StreamWriter streamwriter = new StreamWriter(_errorFilePath, true, Encoding.UTF8, WRITE_BUFFER_SIZE))
+            foreach (string line in File.ReadLines(_inputFilePath))
             {
-                var i = 0;
-                foreach (string line in File.ReadLines(_inputFilePath))
+                i++;
+
+                var csvItem = new CsvItem(line, _referenceSortedColumns);
+
+                if (csvItem.IsHeader && !csvItem.HasErrors)
+                    continue;
+
+                if (csvItem.ClientId > 0 && IsPolicyIdExistingForClient(_clientPolicyLookup, csvItem.ClientId, csvItem.PolicyId))
+                    csvItem.Errors = $"Policy {csvItem.PolicyId} already exists for Client {csvItem.ClientId}; ";
+
+                if (csvItem.HasErrors)
                 {
-                    i++;
+                    //log errors until reaching EOF
+                    HasErrors = true;
+                    streamwriter.WriteLine($"Error - Line {i}: {csvItem.Errors}");
+                    continue;
+                }
 
-                    var csvItem = new CsvItem(line, _referenceSortedColumns);
-
-                    if (csvItem.IsHeader && !csvItem.HasErrors)
-                        continue;
-
-                    if (!csvItem.HasErrors && IsPolicyIdExistingForClient(_clientPolicyLookup, csvItem.ClientId, csvItem.PolicyId))
-                        csvItem.Errors = $"Policy {csvItem.PolicyId} already exists for Client {csvItem.ClientId}; ";
-
-                    if (csvItem.HasErrors)
-                    {
-                        //log errors until reaching EOF
-                        HasErrors = true;
-                        streamwriter.WriteLine($"Error - Line {i}: {csvItem.Errors}");
-                        continue;
-                    }
-
-                    if (!HasErrors)
-                    {
-                        _clientPolicyLookup.Add($"{GetPolicyClientKey(csvItem.ClientId, csvItem.PolicyId)}");
-                        AggregateCountryCost(_countryCostLookup, csvItem);
-                    }
+                if (!HasErrors)
+                {
+                    _clientPolicyLookup.Add($"{GetPolicyClientKey(csvItem.ClientId, csvItem.PolicyId)}");
+                    AggregateCountryCost(_countryCostLookup, csvItem);
                 }
             }
 

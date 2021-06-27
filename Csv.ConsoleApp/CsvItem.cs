@@ -49,12 +49,8 @@ namespace Csv.ConsoleApp
                 errors.Append("Income should be numeric; ");
 
             if (errors.Length > 0)
-            {
                 Errors = errors.ToString();
-                return;
-            }
 
-            // Successful Validation
             ClientId = clientId;
             Cost = cost;
             CountryCode = inputColumns[2];

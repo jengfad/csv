@@ -8,9 +8,9 @@ namespace Csv.ConsoleApp
         [Benchmark(Baseline = true)]
         public void ProcessCsv()
         {
-            var input = "C:\\Repos\\CsvChecker\\CsvChecker\\input.csv";
-            var output = "C:\\Repos\\CsvChecker\\CsvChecker\\output.csv";
-            var error = "C:\\Repos\\CsvChecker\\CsvChecker\\errorLogs.txt";
+            var input = "C:\\Repos\\input.csv";
+            var output = "C:\\Repos\\Csv\\Csv.ConsoleApp\\output.csv";
+            var error = "C:\\Repos\\Csv\\Csv.ConsoleApp\\errorLogs.txt";
             var processor = new CsvProcessor(input, output, error);
             processor.ProcessCsv();
         }
