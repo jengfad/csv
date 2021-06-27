@@ -30,19 +30,23 @@ namespace Csv.ConsoleApp
 
             if (!HasValidColumns(inputColumns, NUMBER_OF_COLUMNS))
             {
-                Errors = "Invalid columns - should have 5 non-blank columns;";
+                if (inputColumns.Length > NUMBER_OF_COLUMNS)
+                    Errors = "Extra column/s found; ";
+                else
+                    Errors = "All 5 columns are mandatory; ";
+
                 return;
             }
 
             var errors = new StringBuilder();
 
             PolicyId = inputColumns[0];
-            if (!int.TryParse(inputColumns[1], out int clientId))
+            if (!int.TryParse(inputColumns[1], out int clientId) || clientId < 0)
                 errors.Append("ClientId should be a whole number; ");
             if (!decimal.TryParse(inputColumns[3], out decimal cost))
-                errors.Append("Cost should be decimal; ");
+                errors.Append("Cost should be numeric; ");
             if (!decimal.TryParse(inputColumns[4], out _))
-                errors.Append("Income should be decimal; ");
+                errors.Append("Income should be numeric; ");
 
             if (errors.Length > 0)
             {
@@ -56,12 +60,12 @@ namespace Csv.ConsoleApp
             CountryCode = inputColumns[2];
         }
 
-        private static bool IsValidHeader(string[] inputColumns, string[] fileColumns)
+        protected static bool IsValidHeader(string[] inputColumns, string[] fileColumns)
         {
             return Enumerable.SequenceEqual(inputColumns, fileColumns);
         }
 
-        private static bool HasValidColumns(string[] textList, short numOfColumns)
+        protected static bool HasValidColumns(string[] textList, short numOfColumns)
         {
             return textList.All(text => !string.IsNullOrWhiteSpace(text)) && textList.Length == numOfColumns;
         }

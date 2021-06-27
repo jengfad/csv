@@ -34,7 +34,6 @@ namespace Csv.ConsoleApp
             _errorFilePath = errorFilePath;
 
             PopulateFilePaths();
-            ClearFile(_outputFilePath);
             ClearFile(_errorFilePath);
         }
 
@@ -89,6 +88,7 @@ namespace Csv.ConsoleApp
 
         private static void WriteOutputToFile(string outputPath, Dictionary<string, decimal> countryCostLookup)
         {
+            ClearFile(outputPath);
             using (StreamWriter streamwriter = new StreamWriter(outputPath, true, Encoding.UTF8, WRITE_BUFFER_SIZE))
             {
                 streamwriter.WriteLine($"CountryCode,TotalCost");
