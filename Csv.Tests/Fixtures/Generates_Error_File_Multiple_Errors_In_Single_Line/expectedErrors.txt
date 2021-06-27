@@ -1,2 +1,2 @@
 ﻿Error - Line 3: ClientId should be a whole number; Income should be numeric; 
-Error - Line 6: Cost should be a non-negative number; Income should be numeric; 
+Error - Line 6: Cost should be a non-negative number; Income should be numeric; Policy 123def45 already exists for Client 68; 

@@ -53,7 +53,7 @@ namespace Csv.ConsoleApp
                     continue;
 
                 if (csvItem.ClientId > 0 && IsPolicyIdExistingForClient(_clientPolicyLookup, csvItem.ClientId, csvItem.PolicyId))
-                    csvItem.Errors = $"Policy {csvItem.PolicyId} already exists for Client {csvItem.ClientId}; ";
+                    csvItem.Errors += $"Policy {csvItem.PolicyId} already exists for Client {csvItem.ClientId}; ";
 
                 if (csvItem.HasErrors)
                 {
