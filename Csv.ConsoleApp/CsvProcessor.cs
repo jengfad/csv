@@ -84,7 +84,7 @@ namespace Csv.ConsoleApp
                 _outputFilePath = GetRelativePath(_outputFilePath);
 
             if (!Path.IsPathRooted(_errorFilePath))
-                _outputFilePath = GetRelativePath(_errorFilePath);
+                _errorFilePath = GetRelativePath(_errorFilePath);
         }
 
         private static void WriteOutputToFile(string outputPath, Dictionary<string, decimal> countryCostLookup)
