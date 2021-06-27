@@ -1,0 +1,3 @@
+﻿Error - Line 1: Invalid Header - Should be (and in order of) PolicyID,ClientID,CountryCode,Cost,Income
+Error - Line 4: All 5 columns are mandatory; 
+Error - Line 5: All 5 columns are mandatory; 
