@@ -203,7 +203,7 @@ namespace Csv.Tests
             var line = "123def45,68,de,3.43,5.13,abc";
             var csvItem = new CsvItem(line, _referenceSortedColumns);
 
-            Assert.AreEqual(csvItem.Errors, "Extra column/s found; ");
+            Assert.AreEqual(csvItem.Errors, "Extra column/s not allowed; ");
         }
 
         [Test]

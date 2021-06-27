@@ -31,7 +31,7 @@ namespace Csv.ConsoleApp
             if (!HasValidColumns(inputColumns, NUMBER_OF_COLUMNS))
             {
                 if (inputColumns.Length > NUMBER_OF_COLUMNS)
-                    Errors = "Extra column/s found; ";
+                    Errors = "Extra column/s not allowed; ";
                 else
                     Errors = "All 5 columns are mandatory; ";
 
