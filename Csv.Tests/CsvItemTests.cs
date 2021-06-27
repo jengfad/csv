@@ -5,7 +5,6 @@ namespace Csv.Tests
 {
     public class CsvItemTests : CsvItem
     {
-        private CsvItem _csvItem;
         private static readonly string[] _referenceSortedColumns = new string[]
         {
             "policyid",
@@ -24,7 +23,6 @@ namespace Csv.Tests
         [SetUp]
         public void Setup()
         {
-            _csvItem = new CsvItem("", _referenceSortedColumns);
         }
 
         [Test]

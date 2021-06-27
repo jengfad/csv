@@ -35,7 +35,7 @@ namespace Csv.ConsoleApp
             _outputFilePath = outputFilePath;
             _errorFilePath = errorFilePath;
 
-            ClearFile(_errorFilePath);
+            FileUtils.ClearFile(_errorFilePath);
         }
 
         public void ProcessCsv()
@@ -77,7 +77,7 @@ namespace Csv.ConsoleApp
 
         private static void WriteOutputToFile(string outputPath, Dictionary<string, decimal> countryCostLookup)
         {
-            ClearFile(outputPath);
+            FileUtils.ClearFile(outputPath);
             using (StreamWriter streamwriter = new StreamWriter(outputPath, true, Encoding.UTF8, WRITE_BUFFER_SIZE))
             {
                 streamwriter.WriteLine($"CountryCode,TotalCost");
@@ -96,17 +96,14 @@ namespace Csv.ConsoleApp
                 countryCostLookup.Add(csvItem.CountryCode, csvItem.Cost);
         }
 
-        private static void ClearFile(string path)
+        protected static bool IsPolicyIdExistingForClient(HashSet<string> clientLookup, string policyId, int clientId)
         {
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
+            return clientLookup.Contains(GetPolicyClientKey(policyId, clientId));
         }
 
-        private static bool IsPolicyIdExistingForClient(HashSet<string> clientLookup, string policyId, int clientId)
+        protected static string GetPolicyClientKey(string policyId, int clientId)
         {
-            return clientLookup.Contains($"{clientId}-{policyId}");
+            return $"{clientId}{KEY_SEPARATOR}{policyId}";
         }
     }
 }
