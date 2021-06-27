@@ -43,8 +43,8 @@ namespace Csv.ConsoleApp
             PolicyId = inputColumns[0];
             if (!int.TryParse(inputColumns[1], out int clientId) || clientId < 0)
                 errors.Append("ClientId should be a whole number; ");
-            if (!decimal.TryParse(inputColumns[3], out decimal cost))
-                errors.Append("Cost should be numeric; ");
+            if (!decimal.TryParse(inputColumns[3], out decimal cost) || cost < 0)
+                errors.Append("Cost should be a non-negative number; ");
             if (!decimal.TryParse(inputColumns[4], out _))
                 errors.Append("Income should be numeric; ");
 

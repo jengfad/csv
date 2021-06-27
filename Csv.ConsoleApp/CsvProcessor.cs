@@ -35,7 +35,6 @@ namespace Csv.ConsoleApp
             _outputFilePath = outputFilePath;
             _errorFilePath = errorFilePath;
 
-            PopulateFilePaths();
             ClearFile(_errorFilePath);
         }
 
@@ -76,18 +75,6 @@ namespace Csv.ConsoleApp
                 WriteOutputToFile(_outputFilePath, _countryCostLookup);
         }
 
-        private void PopulateFilePaths()
-        {
-            if (!Path.IsPathRooted(_inputFilePath))
-                _inputFilePath = GetRelativePath(_inputFilePath);
-
-            if (!Path.IsPathRooted(_outputFilePath))
-                _outputFilePath = GetRelativePath(_outputFilePath);
-
-            if (!Path.IsPathRooted(_errorFilePath))
-                _errorFilePath = GetRelativePath(_errorFilePath);
-        }
-
         private static void WriteOutputToFile(string outputPath, Dictionary<string, decimal> countryCostLookup)
         {
             ClearFile(outputPath);
@@ -120,13 +107,6 @@ namespace Csv.ConsoleApp
         private static bool IsPolicyIdExistingForClient(HashSet<string> clientLookup, string policyId, int clientId)
         {
             return clientLookup.Contains($"{clientId}-{policyId}");
-        }
-
-        private static string GetRelativePath(string filename)
-        {
-            var workingDirectory = Environment.CurrentDirectory;
-            var projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
-            return Path.Combine(projectDirectory, filename);
         }
     }
 }

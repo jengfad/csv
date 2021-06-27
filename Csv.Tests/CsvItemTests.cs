@@ -178,7 +178,16 @@ namespace Csv.Tests
             var line = "123def45,68,de,3.43a,5.13";
             var csvItem = new CsvItem(line, _referenceSortedColumns);
 
-            Assert.AreEqual(csvItem.Errors, "Cost should be numeric; ");
+            Assert.AreEqual(csvItem.Errors, "Cost should be a non-negative number; ");
+        }
+
+        [Test]
+        public void Cost_Is_Negative_Number_Should_Return_Errors()
+        {
+            var line = "123def45,68,de,-3.43,5.13";
+            var csvItem = new CsvItem(line, _referenceSortedColumns);
+
+            Assert.AreEqual(csvItem.Errors, "Cost should be a non-negative number; ");
         }
 
         [Test]
