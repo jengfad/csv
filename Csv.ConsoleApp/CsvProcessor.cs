@@ -52,7 +52,7 @@ namespace Csv.ConsoleApp
                     if (csvItem.IsHeader && !csvItem.HasErrors)
                         continue;
 
-                    if (!csvItem.HasErrors && IsPolicyIdExistingForClient(_clientPolicyLookup, csvItem.PolicyId, csvItem.ClientId))
+                    if (!csvItem.HasErrors && IsPolicyIdExistingForClient(_clientPolicyLookup, csvItem.ClientId, csvItem.PolicyId))
                         csvItem.Errors = $"Policy {csvItem.PolicyId} already exists for Client {csvItem.ClientId}; ";
 
                     if (csvItem.HasErrors)
@@ -65,7 +65,7 @@ namespace Csv.ConsoleApp
 
                     if (!HasErrors)
                     {
-                        _clientPolicyLookup.Add($"{csvItem.ClientId}{KEY_SEPARATOR}{csvItem.PolicyId}");
+                        _clientPolicyLookup.Add($"{GetPolicyClientKey(csvItem.ClientId, csvItem.PolicyId)}");
                         AggregateCountryCost(_countryCostLookup, csvItem);
                     }
                 }
@@ -96,12 +96,12 @@ namespace Csv.ConsoleApp
                 countryCostLookup.Add(csvItem.CountryCode, csvItem.Cost);
         }
 
-        protected static bool IsPolicyIdExistingForClient(HashSet<string> clientLookup, string policyId, int clientId)
+        protected static bool IsPolicyIdExistingForClient(HashSet<string> clientLookup, int clientId, string policyId)
         {
-            return clientLookup.Contains(GetPolicyClientKey(policyId, clientId));
+            return clientLookup.Contains(GetPolicyClientKey(clientId, policyId));
         }
 
-        protected static string GetPolicyClientKey(string policyId, int clientId)
+        protected static string GetPolicyClientKey(int clientId, string policyId)
         {
             return $"{clientId}{KEY_SEPARATOR}{policyId}";
         }
