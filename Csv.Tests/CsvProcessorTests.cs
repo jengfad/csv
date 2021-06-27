@@ -18,7 +18,7 @@ namespace Csv.Tests
         [Test]
         public void Generates_Valid_Client_Policy_Key()
         {
-            var value = GetPolicyClientKey("policy333", 61);
+            var value = GetPolicyClientKey(61, "policy333");
 
             Assert.AreEqual("61-policy333", value);
         }
@@ -31,7 +31,7 @@ namespace Csv.Tests
                 "62-policy2"
             };
 
-            var value = IsPolicyIdExistingForClient(clientLookup, "policy1", 61);
+            var value = IsPolicyIdExistingForClient(clientLookup, 61, "policy1");
 
             Assert.AreEqual(true, value);
         }
@@ -44,7 +44,7 @@ namespace Csv.Tests
                 "62-policy2"
             };
 
-            var value = IsPolicyIdExistingForClient(clientLookup, "policy123", 61);
+            var value = IsPolicyIdExistingForClient(clientLookup, 61, "policy123");
 
             Assert.AreEqual(false, value);
         }
