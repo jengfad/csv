@@ -30,7 +30,7 @@ namespace Csv.ConsoleApp
             if (csv.HasErrors)
                 Console.WriteLine($"CSV Errors detected. See {csv.ErrorFilePath}");
             else
-                Console.WriteLine($"CSV Processing Successful. See output file.");
+                Console.WriteLine($"CSV Processing Successful. See {csv.OutputFilePath}");
         }
 
         static string GetInputPath()
@@ -43,13 +43,11 @@ namespace Csv.ConsoleApp
                 inputPath = Console.ReadLine();
                 isValidInput = inputPath.IsValidPath();
 
-                if (isValidInput)
-                    inputPath = inputPath.GetFilepath();
-                else
+                if (!isValidInput)
                     Console.WriteLine("You entered an invalid input file path.");
             } while (!isValidInput);
 
-            return inputPath;
+            return inputPath.GetFilepath();
         }
 
         static string GetOutputPath()
@@ -60,16 +58,15 @@ namespace Csv.ConsoleApp
             {
                 Console.WriteLine("Enter OUTPUT file path (relative or full file path):");
                 outputPath = Console.ReadLine();
-                if (Path.IsPathRooted(outputPath))
-                    isValidOutput = outputPath.HasValidDirectory();
-                else
-                    isValidOutput = true;
+                isValidOutput = Path.IsPathRooted(outputPath) 
+                    ? outputPath.HasValidDirectory()
+                    : true;
 
                 if (!isValidOutput)
                     Console.WriteLine("You entered an invalid output file path.");
             } while (!isValidOutput);
 
-            return outputPath;
+            return outputPath.GetFilepath();
         }
     }
 }

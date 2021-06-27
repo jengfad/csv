@@ -22,6 +22,7 @@ namespace Csv.ConsoleApp
         private string _outputFilePath;
         private string _errorFilePath;
 
+        public string OutputFilePath => _outputFilePath;
         public string ErrorFilePath => _errorFilePath;
 
         public bool HasErrors { get; set; }
